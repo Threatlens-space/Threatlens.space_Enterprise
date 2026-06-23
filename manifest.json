@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "ThreatLens Enterprise",
+  "short_name": "ThreatLens",
+  "version": "2.6",
+  "description": "Enterprise Browser Intrusion Prevention System. Intercepts downloads, enforces rules, and pauses unknown files.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "security@threatlens.space",
+      "strict_min_version": "109.0"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "ThreatLens",
+    "default_popup": "src/popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/content/clickMonitor.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "downloads",
+    "storage",
+    "identity",
+    "identity.email"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
+  "storage": {
+    "managed_schema": "schema.json"
+  }
+}

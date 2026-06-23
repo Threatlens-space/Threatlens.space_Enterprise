@@ -1,0 +1,26 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="32" fill="#09070F"/>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#panel)" stroke="url(#stroke)"/>
+  <path d="M64 25L92 34V57C92 77.1052 80.4238 95.4123 64 103C47.5762 95.4123 36 77.1052 36 57V34L64 25Z" fill="url(#shield)" fill-opacity="0.16" stroke="url(#shieldStroke)" stroke-width="2"/>
+  <circle cx="59" cy="57" r="17" fill="#120E22" stroke="#E8D8FF" stroke-width="4"/>
+  <path d="M70.5 68.5L83 81" stroke="#B494FF" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="59" cy="57" r="8" fill="#9B72FF"/>
+  <defs>
+    <linearGradient id="panel" x1="64" y1="8" x2="64" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#211A3A"/>
+      <stop offset="1" stop-color="#0F0B1C"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="16" y1="20" x2="111.5" y2="113" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A77BFF" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#412B77" stop-opacity="0.22"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="64" y1="25" x2="64" y2="103" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B494FF"/>
+      <stop offset="1" stop-color="#6B4BD0"/>
+    </linearGradient>
+    <linearGradient id="shieldStroke" x1="36" y1="25" x2="95.5" y2="94.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9C7FF"/>
+      <stop offset="1" stop-color="#7E5AE8"/>
+    </linearGradient>
+  </defs>
+</svg>

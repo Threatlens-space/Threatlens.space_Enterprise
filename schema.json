@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "threatlens.config": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "object",
+          "properties": {
+            "allowlist": {
+              "type": "object",
+              "properties": {
+                "domains":   { "type": "array", "items": { "type": "string" } },
+                "urls":      { "type": "array", "items": { "type": "string" } },
+                "fileTypes": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "blocklist": {
+              "type": "object",
+              "properties": {
+                "domains":   { "type": "array", "items": { "type": "string" } },
+                "urls":      { "type": "array", "items": { "type": "string" } },
+                "fileTypes": { "type": "array", "items": { "type": "string" } },
+                "hashes":    { "type": "array", "items": { "type": "string" }, "description": "SHA-256 hashes of files to block. Lowercase hex strings, 64 characters each." }
+              }
+            }
+          }
+        },
+        "allowlist": {
+          "type": "object",
+          "properties": {
+            "domains":   { "type": "array", "items": { "type": "string" } },
+            "urls":      { "type": "array", "items": { "type": "string" } },
+            "fileTypes": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "blocklist": {
+          "type": "object",
+          "properties": {
+            "domains":   { "type": "array", "items": { "type": "string" } },
+            "urls":      { "type": "array", "items": { "type": "string" } },
+            "fileTypes": { "type": "array", "items": { "type": "string" } },
+            "hashes":    { "type": "array", "items": { "type": "string" }, "description": "SHA-256 hashes of files to block. Lowercase hex strings, 64 characters each." }
+          }
+        }
+      }
+    }
+  }
+}

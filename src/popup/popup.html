@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ThreatLens</title>
+    <link rel="stylesheet" href="./popup.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <div class="brand-logo-container">
+            <img src="/assets/branding/logo.png" alt="ThreatLens" class="brand-logo-img">
+          </div>
+          <p id="hero-copy" style="display: none;"></p>
+        </div>
+        <div class="header-side">
+          <span class="status-pill tone-good" id="hero-status">Monitoring</span>
+          <p id="hero-meta" style="display: none;"></p>
+        </div>
+      </header>
+
+      <nav class="tab-bar" aria-label="ThreatLens sections">
+        <button class="tab-button is-active" data-section-target="intel">Intel</button>
+        <button class="tab-button" data-section-target="review">Review</button>
+        <button class="tab-button" data-section-target="sandbox">Sandbox</button>
+        <button class="tab-button" data-section-target="rules">Rules</button>
+        <button class="tab-button" data-section-target="settings">Settings</button>
+      </nav>
+
+      <section class="panel-section is-visible" data-section="intel">
+        <article class="panel-card mascot-panel">
+          <div id="intel-mascot-container" class="mascot-container">
+            <!-- Animated SVG injected by JS -->
+          </div>
+          <div class="intel-summary">
+            <h2 id="intel-verdict-title" class="intel-verdict" style="text-align: center;">Ready to Analyze</h2>
+            <p id="intel-verdict-subtitle" class="intel-verdict-subtitle" style="display: none;"></p>
+            <div class="intel-why-box" id="intel-why-box" style="display: none; background: var(--surface); padding: 6px 0 0; border-radius: 8px; margin-top: 6px; border: none;">
+               <strong style="display: block; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; color: var(--text-soft);">Why?</strong>
+               <div id="intel-verdict-copy" class="review-copy" style="text-align: left; margin: 0; font-size: 13px;">Waiting for a download to intercept.</div>
+               <div id="intel-verdict-age"></div>
+            </div>
+            <p id="intel-verdict-fallback" class="review-copy" style="text-align: center; margin-top: 8px;">Waiting for a download to intercept.</p>
+          </div>
+          <div id="intel-file-hash-display" style="display: none; margin-top: 16px; gap: 8px; flex-direction: column; width: 100%;">
+            <strong style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-soft); letter-spacing: 0.5px; padding-left: 4px; margin-bottom: 6px;">File Fingerprints</strong>
+            <div style="background: var(--card-inner); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <strong style="font-size: 10.5px; color: var(--text);">SHA-256</strong>
+                  <div id="intel-hash-verdicts" style="display: flex; gap: 4px;"></div>
+                </div>
+                <div id="intel-file-hash-value" style="font-family: monospace; font-size: 10px; color: var(--text-soft); margin-top: 2px; word-break: break-all;"></div>
+              </div>
+              <button id="intel-btn-copy-hash" style="background: var(--surface); border: 1px solid var(--border-soft); border-radius: 6px; padding: 4px 8px; font-size: 9px; font-weight: 600; color: var(--text); cursor: pointer; flex-shrink: 0; margin-left: 8px;">Copy</button>
+            </div>
+            <div id="intel-tlsh-hash-container" style="background: var(--card-inner); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; display: none; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <strong style="font-size: 10.5px; color: var(--text);">Fuzzy Hash (TLSH)</strong>
+                  <div id="intel-tlsh-verdicts" style="display: flex; gap: 4px;"></div>
+                </div>
+                <div id="intel-tlsh-hash-value" style="font-family: monospace; font-size: 10px; color: var(--text-soft); margin-top: 2px; word-break: break-all;"></div>
+              </div>
+              <button id="intel-btn-copy-tlsh" style="background: var(--surface); border: 1px solid var(--border-soft); border-radius: 6px; padding: 4px 8px; font-size: 9px; font-weight: 600; color: var(--text); cursor: pointer; flex-shrink: 0; margin-left: 8px;">Copy</button>
+            </div>
+          </div>
+          <div class="action-row action-row-compact" id="intel-action-group" style="margin-top: 16px; display: none; gap: 8px; width: 100%;">
+             <button type="button" id="intel-btn-allow" class="action-button action-button-primary" style="flex: 1; font-size: 11px; padding: 10px 4px; border-radius: 8px;">Allow</button>
+             <button type="button" id="intel-btn-block" class="action-button action-button-danger" style="flex: 1; font-size: 11px; padding: 10px 4px; border-radius: 8px;">Block</button>
+             <button type="button" id="intel-more-details" data-section-jump="review" class="action-button action-button-secondary" style="flex: 1; font-size: 11px; padding: 10px 4px; border-radius: 8px;">Details</button>
+          </div>
+          <div class="action-row" id="intel-advanced-scan-container" style="margin-top: 8px; display: none;">
+             <button type="button" id="intel-btn-advanced-scan" class="action-button action-button-secondary" style="width: 100%; border-color: var(--warn); color: var(--warn);">
+                Advanced OSINT Scan
+             </button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel-section" data-section="review">
+        <article class="panel-card review-panel" id="review-shell"></article>
+
+        <article class="panel-card queue-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow eyebrow-queue">Queue</p>
+              <h2>Pending Downloads</h2>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="panel-note" id="pending-count-copy">No downloads waiting</span>
+              <button type="button" id="btn-clear-queue" class="action-button action-button-ghost" style="padding: 4px 10px; font-size: 10px; border-radius: 6px; display: none;">Clear All</button>
+            </div>
+          </div>
+          <div class="queue-list" id="pending-list"></div>
+        </article>
+      </section>
+
+      <section class="panel-section" data-section="rules">
+        <article class="panel-card">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Trust Policy</p>
+              <h2>Allowlist</h2>
+            </div>
+          </div>
+
+          <p class="form-message" data-form-message="allowlist"></p>
+          <div class="rule-groups" data-rule-groups="allowlist"></div>
+        </article>
+
+        <article class="panel-card">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Enforcement Policy</p>
+              <h2>Blocklist</h2>
+            </div>
+          </div>
+
+          <p class="form-message" data-form-message="blocklist"></p>
+          <div class="rule-groups" data-rule-groups="blocklist"></div>
+        </article>
+      </section>
+
+      <section class="panel-section" data-section="settings">
+        <article class="panel-card">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Runtime</p>
+              <h2>Prompt Behavior</h2>
+            </div>
+          </div>
+          <label class="toggle-card">
+            <div>
+              <strong>Prefer in-page review</strong>
+              <p>Show the ThreatLens review inside the page when Chrome allows script injection on that tab.</p>
+            </div>
+            <input type="checkbox" data-setting="preferOverlayPrompt">
+          </label>
+        </article>
+
+        <article class="panel-card">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">VirusTotal</p>
+              <h2>API Configuration</h2>
+            </div>
+          </div>
+          <form id="vt-form" class="integration-form">
+            <label class="integration-field">
+              <span>API Key</span>
+              <input id="vt-api-key" name="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your VirusTotal API key">
+            </label>
+            <div class="action-row">
+              <button type="submit" class="action-button action-button-primary">Save</button>
+              <button type="button" id="vt-delete" class="action-button action-button-ghost">Delete</button>
+            </div>
+            <p class="field-note" id="vt-key-mask">Not configured</p>
+          </form>
+
+          <label class="toggle-card">
+            <div>
+              <strong>Automatic Scans</strong>
+              <p>ThreatLens now resumes VirusTotal, hashing, and urlscan automatically. Manual scan buttons remain only as refresh controls.</p>
+            </div>
+            <input type="checkbox" data-vt-setting="autoLookup">
+          </label>
+
+          <p class="form-message" id="vt-message"></p>
+        </article>
+
+        <article class="panel-card" style="margin-top: 16px;">
+          <div class="panel-head" style="margin-bottom: 12px;">
+            <div>
+              <p class="eyebrow">CrowdStrike Falcon</p>
+              <h2>Hybrid Analysis</h2>
+            </div>
+          </div>
+          <form id="form-ha-key" class="integration-form">
+            <label class="integration-field">
+              <span>API Key</span>
+              <input type="password" id="ha-api-key" name="apiKey" placeholder="Paste Hybrid Analysis key..." autocomplete="off">
+            </label>
+            <div class="action-row">
+              <button type="submit" class="action-button action-button-primary">Save</button>
+              <button type="button" id="ha-delete" class="action-button action-button-ghost">Delete</button>
+            </div>
+            <p class="field-note" id="ha-key-mask">Not configured</p>
+          </form>
+
+          <p class="form-message" id="ha-message"></p>
+        </article>
+
+        <article class="panel-card" style="margin-top: 16px;">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Session</p>
+              <h2>Activity</h2>
+            </div>
+          </div>
+          <p class="field-note activity-copy" id="activity-summary">No recent ThreatLens activity.</p>
+          <div class="action-row">
+            <button type="button" id="reset-stats" class="action-button action-button-ghost">Reset Activity</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel-section" data-section="sandbox">
+        <div class="sandbox-panel" id="sandbox-content-container">
+          <div class="empty-state" style="margin-top: 20px; text-align: center;">
+            <article class="panel-card" style="text-align: left; margin-bottom: 16px;">
+              <div class="panel-head" style="margin-bottom: 12px;">
+                <div>
+                  <p class="eyebrow">Settings</p>
+                  <h2>Sandbox Configuration</h2>
+                </div>
+              </div>
+              <label class="toggle-card" style="margin: 0;">
+                <div>
+                  <strong>Auto-Submit Suspicious Files</strong>
+                  <p>Automatically query or submit files flagged as malicious to Hybrid Analysis.</p>
+                </div>
+                <input type="checkbox" data-ha-setting="autoSubmitMalicious">
+              </label>
+            </article>
+            
+            <div style="background: var(--card-inner); border: 1px dashed var(--border); border-radius: 12px; padding: 40px 20px;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted); margin-bottom: 12px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <h3 style="font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Awaiting Sandbox Data</h3>
+              <p style="font-size: 12px; color: var(--text-soft); line-height: 1.5; max-width: 260px; margin: 0 auto;">Select a file in the Review tab and click "Run Sandbox Analysis" to detonate it and view behavioral reports here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>
