@@ -1,17 +1,17 @@
 <div align="center">
-  <img src="docs/logo.png" alt="ThreatLens.space Logo" width="220" />
-  <h1>ThreatLens.space</h1>
+  <img src="assets/logo.png" alt="ThreatLens.space Enterprise Logo" width="220" />
+  <h1>ThreatLens.space Enterprise</h1>
   <p><strong>Zero-Trust Browser Intrusion Prevention System</strong></p>
   <p>
     <img src="https://img.shields.io/badge/Manifest_V3-Ready-success?style=for-the-badge&logo=google-chrome" alt="MV3 Ready" />
-    <img src="https://img.shields.io/badge/Version-2.0.0-blue?style=for-the-badge" alt="Version 2.0.0" />
+    <img src="https://img.shields.io/badge/Version-2.6-blue?style=for-the-badge" alt="Version 2.6" />
     <img src="https://img.shields.io/badge/Security-Enterprise_Grade-brightgreen?style=for-the-badge" alt="Security" />
   </p>
 </div>
 
 ---
 
-**ThreatLens** is a high-fidelity, enterprise-grade Chrome extension that intercepts browser downloads, enforces strict security policies, and quarantines unknown files until an explicit decision is made. It ensures malicious payloads are stopped in memory before they ever touch your physical disk.
+**ThreatLens Enterprise** is a high-fidelity, enterprise-grade Chrome extension that intercepts browser downloads, enforces strict security policies, and quarantines unknown files until an explicit decision is made. It ensures malicious payloads are stopped in memory before they ever touch your physical disk.
 
 <br/>
 
@@ -70,7 +70,7 @@ Open `chrome://policy` on any managed machine and click **Reload policies**. Und
 
 If you are using the individual extension, setup is simple:
 
-1. Navigate to the [Chrome Web Store](https://chromewebstore.google.com/detail/dojfphnfdcdhlhhdnjomojndhhfaoemd?utm_source=item-share-cb).
+1. Navigate to the [Chrome Web Store](https://chromewebstore.google.com/detail/dojfphnfdcdhlhhdnjomojndhhfaoemd).
 2. Click **Add to Chrome**.
 3. Pin **ThreatLens** to your toolbar.
 4. (Optional) Provide your free **VirusTotal API Key** in the ThreatLens settings to unlock deep OSINT cross-referencing on your local downloads.
@@ -83,6 +83,7 @@ ThreatLens is designed using an ephemeral, highly secure service-worker model bu
 
 - **`service-worker.js`**: Orchestrates storage, deep scans, and download interception.
 - **`downloadHandler.js`**: Manages the quarantine-and-replay lifecycle.
+- **`hybridAnalysis.js`**: Deep integrations for sandbox and hybrid analysis checks.
 - **`reputationService.js`**: Integrates deep threat-intelligence APIs (VirusTotal, urlscan, IP lookup, RDAP domain maturity).
 - **`rulesEngine.js`**: Evaluates active strict Allow/Block policies.
 - **`popup/`**: The primary dashboard for managing intelligence insights and configuring policies.
